@@ -15,6 +15,8 @@ Our tools and development ecosystem allow us to quickly gather metrics to observ
 - [ ] Identify `hotspots` (where they are located)
 - [ ] Review the `tests quality`
 
+- [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
+
 ### AI actions
 - **Rate code**: Score code quality
 - **Suggest Refactoring**: Suggest improvements for design and structure.

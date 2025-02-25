@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using JurassicCode.Requests;
 
 namespace JurassicCode.API.Controllers;
 
@@ -92,34 +93,4 @@ public class ParkController : ControllerBase
             return StatusCode(500, $"Error retrieving dinosaurs: {ex.Message}");
         }
     }
-}
-
-public class ZoneRequest
-{
-    public string Name { get; set; }
-    public bool IsOpen { get; set; }
-}
-
-public class AddDinosaurRequest
-{
-    public string ZoneName { get; set; }
-    public Dinosaur Dinosaur { get; set; }
-}
-
-public class MoveDinosaurRequest
-{
-    public string FromZoneName { get; set; }
-    public string ToZoneName { get; set; }
-    public string DinosaurName { get; set; }
-}
-
-public class ZoneToggleRequest
-{
-    public string ZoneName { get; set; }
-}
-
-public class SpeciesCoexistRequest
-{
-    public string Species1 { get; set; }
-    public string Species2 { get; set; }
 }

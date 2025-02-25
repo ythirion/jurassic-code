@@ -29,7 +29,7 @@ public static class DataAccessLayer
     {
         if (_db.Zones.TryGetValue(zoneCode, out var zone))
         {
-            _db.Dinosaurs.Add(dinosaur.CodeName, dinosaur);
+            Database.Dinosaurs(_db).Add(dinosaur.CodeName, dinosaur);
             zone.DinosaurCodes.Add(dinosaur.CodeName);
         }
     }
@@ -45,7 +45,7 @@ public static class DataAccessLayer
     
     public static Entities.DinosaurEntity GetDinosaurByName(string dinoCode)
     {
-        _db.Dinosaurs.TryGetValue(dinoCode, out var dino);
+        Database.Dinosaurs(_db).TryGetValue(dinoCode, out var dino);
         return dino;
     }
 }
