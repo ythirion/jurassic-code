@@ -1,0 +1,125 @@
+using Microsoft.AspNetCore.Mvc;
+using System;
+
+namespace JurassicCode.API.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class ParkController : ControllerBase
+{
+    private readonly ParkService _parkService = new();
+
+    [HttpPost("AddZone")]
+    public IActionResult AddZone([FromBody] ZoneRequest request)
+    {
+        try
+        {
+            _parkService.AddZone(request.Name, request.IsOpen);
+            return Ok("Zone added successfully.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error adding zone: {ex.Message}");
+        }
+    }
+
+    [HttpPost("AddDinosaurToZone")]
+    public IActionResult AddDinosaurToZone([FromBody] AddDinosaurRequest request)
+    {
+        try
+        {
+            _parkService.AddDinosaurToZone(request.ZoneName, request.Dinosaur);
+            return Ok("Dinosaur added to zone successfully.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error adding dinosaur to zone: {ex.Message}");
+        }
+    }
+
+    [HttpPost("MoveDinosaur")]
+    public IActionResult MoveDinosaur([FromBody] MoveDinosaurRequest request)
+    {
+        try
+        {
+            _parkService.MoveDinosaur(request.FromZoneName, request.ToZoneName, request.DinosaurName);
+            return Ok("Dinosaur moved successfully.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error moving dinosaur: {ex.Message}");
+        }
+    }
+
+    [HttpPost("ToggleZone")]
+    public IActionResult ToggleZone([FromBody] ZoneToggleRequest request)
+    {
+        try
+        {
+            _parkService.ToggleZone(request.ZoneName);
+            return Ok("Zone toggled successfully.");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error toggling zone: {ex.Message}");
+        }
+    }
+
+    [HttpPost("CanSpeciesCoexist")]
+    public IActionResult CanSpeciesCoexist([FromBody] SpeciesCoexistRequest request)
+    {
+        try
+        {
+            bool canCoexist = _parkService.CanSpeciesCoexist(request.Species1, request.Species2);
+            return Ok(canCoexist);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error determining species coexistence: {ex.Message}");
+        }
+    }
+
+    [HttpPost("GetDinosaursInZone")]
+    public IActionResult GetDinosaursInZone([FromBody] ZoneRequest request)
+    {
+        try
+        {
+            var dinosaurs = _parkService.GetDinosaursInZone(request.Name);
+            return Ok(dinosaurs);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error retrieving dinosaurs: {ex.Message}");
+        }
+    }
+}
+
+public class ZoneRequest
+{
+    public string Name { get; set; }
+    public bool IsOpen { get; set; }
+}
+
+public class AddDinosaurRequest
+{
+    public string ZoneName { get; set; }
+    public Dinosaur Dinosaur { get; set; }
+}
+
+public class MoveDinosaurRequest
+{
+    public string FromZoneName { get; set; }
+    public string ToZoneName { get; set; }
+    public string DinosaurName { get; set; }
+}
+
+public class ZoneToggleRequest
+{
+    public string ZoneName { get; set; }
+}
+
+public class SpeciesCoexistRequest
+{
+    public string Species1 { get; set; }
+    public string Species2 { get; set; }
+}
