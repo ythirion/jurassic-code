@@ -27,6 +27,8 @@ Our tools and development ecosystem allow us to quickly gather metrics to observ
 - **Hints**: Recommend best practices based on the code.
 - **Mikado**: Suggest a refactoring strategy using Mikado method based on a specific goal.
 - **Split User Stories**: Complex U.S / how to implement
+- **Generate missing automated tests**
+- **Architecture redesign**
 
 #### From pitch
 - **Taming Complexity of the Fossil Code**
@@ -39,7 +41,6 @@ Our tools and development ecosystem allow us to quickly gather metrics to observ
 - **Building the Future on Yesterday’s Code**  
 	- Use the **Sprout Method** to safely grow new features without disturbing the delicate ecosystem.  
 	- Split user stories like a pro—breaking them down into actionable, manageable pieces. 
-
 	
 ## User Story
 ### Dynamic Dinosaur Relocation and Zone Management
