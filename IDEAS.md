@@ -10,6 +10,7 @@
 
 #### Gather metrics
 Our tools and development ecosystem allow us to quickly gather metrics to observe the code quality in a fairly factual manner:
+
 - [ ] Retrieve `code coverage` 
 - [ ] Set up a `static code analysis` tool
 - [ ] Identify `hotspots` (where they are located)
@@ -18,12 +19,14 @@ Our tools and development ecosystem allow us to quickly gather metrics to observ
 - [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
 
 ### AI actions
+- **Explain the product**: Which features are covered by the product.
+- **Generate Diagram**: Generate mermaid diagrams from code. If no diagram type provided, please ask for the type to the user. Guide him based on the possibilities offered by mermaid (C4, class, sequence, ...)
 - **Rate code**: Score code quality
 - **Suggest Refactoring**: Suggest improvements for design and structure.
 - **Find Bugs**: Analyze code and errors to identify issues.
-- **Generate Diagram**: Generate mermaid diagrams from code. If no diagram type provided, please ask for the type to the user. Guide him based on the possibilities offered by mermaid (C4, class, sequence, ...).
 - **Hints**: Recommend best practices based on the code.
-- **Mikado**: Suggest a refactoring strategy using Mikado method based on a specific goal. 
+- **Mikado**: Suggest a refactoring strategy using Mikado method based on a specific goal.
+- **Split User Stories**: Complex U.S / how to implement
 
 #### From pitch
 - **Taming Complexity of the Fossil Code**
