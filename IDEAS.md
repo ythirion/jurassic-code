@@ -19,6 +19,8 @@ Our tools and development ecosystem allow us to quickly gather metrics to observ
 - [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
 
 ### AI actions
+Use [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)?
+
 - **Explain the product**: Which features are covered by the product.
 - **Generate Diagram**: Generate mermaid diagrams from code. If no diagram type provided, please ask for the type to the user. Guide him based on the possibilities offered by mermaid (C4, class, sequence, ...)
 - **Rate code**: Score code quality
