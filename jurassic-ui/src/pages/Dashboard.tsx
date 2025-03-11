@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
   return (
     <Layout>
       <PageHeader>
-        <h1>Jurassic Park Dashboard</h1>
+        <h1>Park Dashboard</h1>
         <p>Real-time monitoring and management of park systems and assets</p>
       </PageHeader>
       

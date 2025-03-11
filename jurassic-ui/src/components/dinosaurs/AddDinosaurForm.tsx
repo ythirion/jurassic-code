@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dinosaur, AddDinosaurRequest, JurassicParkClient } from '../../services/api';
 import { FormGroup, Input, Select, Checkbox, Label, Button, AlertBox } from '../styled';
 
@@ -12,12 +12,19 @@ const AddDinosaurForm: React.FC<AddDinosaurFormProps> = ({ zones, onDinosaurAdde
   const [species, setSpecies] = useState('');
   const [isCarnivorous, setIsCarnivorous] = useState(false);
   const [isSick, setIsSick] = useState(false);
-  const [zone, setZone] = useState(zones.length > 0 ? zones[0] : '');
+  const [zone, setZone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   
   const client = new JurassicParkClient();
+  
+  // Update zone selection when zones prop changes
+  useEffect(() => {
+    if (zones.length > 0 && zone === '') {
+      setZone(zones[0]);
+    }
+  }, [zones, zone]);
   
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,8 +33,17 @@ const AddDinosaurForm: React.FC<AddDinosaurFormProps> = ({ zones, onDinosaurAdde
     setSuccess(null);
     
     try {
-      if (!name || !species || !zone) {
-        throw new Error('Please fill out all required fields.');
+      // Check each field individually to provide clearer error messages
+      if (!name) {
+        throw new Error('Please enter a dinosaur name.');
+      }
+      
+      if (!species) {
+        throw new Error('Please enter a species.');
+      }
+      
+      if (!zone) {
+        throw new Error('Please select a zone. If no zones are available, create one first.');
       }
       
       const dinosaur: Dinosaur = {
@@ -51,7 +67,10 @@ const AddDinosaurForm: React.FC<AddDinosaurFormProps> = ({ zones, onDinosaurAdde
       setSpecies('');
       setIsCarnivorous(false);
       setIsSick(false);
-      setZone(zones.length > 0 ? zones[0] : '');
+      // Keep the current zone selected if it's still valid
+      if (zones.length > 0) {
+        setZone(zones[0]);
+      }
       
       // Notify parent component
       onDinosaurAdded();
