@@ -10,9 +10,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar>
-        <Logo>Jurassic Park Control System</Logo>
+        <Logo>Jurassic Code</Logo>
         <NavLinks>
           <li>
             <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Footer>
         <p>© 2025 Jurassic Code | All Rights Reserved</p>
       </Footer>
-    </>
+    </div>
   );
 };
 

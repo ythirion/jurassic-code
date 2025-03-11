@@ -2,6 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 
 export const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: 'Jurassic Park';
+    src: url('/fonts/jurassic-park.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   
   * {
     box-sizing: border-box;
@@ -76,7 +82,8 @@ export const GlobalStyles = createGlobalStyle`
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 ${theme.spacing.md};
+    padding: ${theme.spacing.lg} ${theme.spacing.md};
+    flex: 1;
   }
   
   .glass-panel {

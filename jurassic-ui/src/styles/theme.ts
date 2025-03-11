@@ -14,7 +14,7 @@ export const theme = {
   },
   fonts: {
     main: "'Roboto', sans-serif",
-    title: "'Impact', 'Arial Black', sans-serif", // Using standard fonts that are similar to Jurassic Park style
+    title: "'Jurassic Park', 'Impact', 'Arial Black', sans-serif",
   },
   breakpoints: {
     mobile: '576px',
