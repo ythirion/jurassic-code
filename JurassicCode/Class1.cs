@@ -16,11 +16,12 @@ public interface IParkService
     IEnumerable<Zone> GetAllZones();
 }
 
-public class ParkService : IParkService
+public partial class ParkService : IParkService
 {
     public ParkService()
     {
         DataAccessLayer.Init();
+        Init();
     }
 
     public void AddZone(string name, bool isOpen)
