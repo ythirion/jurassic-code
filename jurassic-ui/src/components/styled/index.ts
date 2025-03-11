@@ -242,6 +242,9 @@ export const Logo = styled.div`
   font-size: 1.8rem;
   color: ${theme.colors.accent};
   text-shadow: 0 0 5px rgba(235, 190, 23, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
 `;
 
 export const NavLinks = styled.ul`

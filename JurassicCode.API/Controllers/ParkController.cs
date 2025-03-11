@@ -8,11 +8,12 @@ namespace JurassicCode.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ParkController : ControllerBase
+public class ParkController(ParkService parkService) : ControllerBase
 {
-    private readonly ParkService _parkService = new();
+    private readonly IParkService _parkService = parkService;
 
     [HttpGet("GetAllZones")]
+    [HttpOptions("GetAllZones")] // Add OPTIONS support for CORS preflight
     public IActionResult GetAllZones()
     {
         try

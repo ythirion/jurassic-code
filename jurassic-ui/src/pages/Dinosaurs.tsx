@@ -36,78 +36,10 @@ const Dinosaurs: React.FC = () => {
       try {
         setLoading(true);
         
-        // For demo purposes, we'll create some mock data
-        // In a real app, we would fetch this from the API
-        const mockZones: Zone[] = [
-          {
-            name: 'T-Rex Paddock',
-            isOpen: false,
-            dinosaurs: [
-              {
-                name: 'Rexy',
-                species: 'Tyrannosaurus Rex',
-                isCarnivorous: true,
-                isSick: false,
-                lastFed: new Date(Date.now() - 3600000 * 2).toISOString() // 2 hours ago
-              }
-            ]
-          },
-          {
-            name: 'Herbivore Valley',
-            isOpen: true,
-            dinosaurs: [
-              {
-                name: 'Tri',
-                species: 'Triceratops',
-                isCarnivorous: false,
-                isSick: false,
-                lastFed: new Date(Date.now() - 3600000 * 1).toISOString() // 1 hour ago
-              },
-              {
-                name: 'Spike',
-                species: 'Stegosaurus',
-                isCarnivorous: false,
-                isSick: true,
-                lastFed: new Date(Date.now() - 3600000 * 8).toISOString() // 8 hours ago
-              }
-            ]
-          },
-          {
-            name: 'Raptor Containment',
-            isOpen: false,
-            dinosaurs: [
-              {
-                name: 'Blue',
-                species: 'Velociraptor',
-                isCarnivorous: true,
-                isSick: false,
-                lastFed: new Date(Date.now() - 3600000 * 5).toISOString() // 5 hours ago
-              },
-              {
-                name: 'Delta',
-                species: 'Velociraptor',
-                isCarnivorous: true,
-                isSick: false,
-                lastFed: new Date(Date.now() - 3600000 * 5).toISOString() // 5 hours ago
-              }
-            ]
-          },
-          {
-            name: 'Aviary',
-            isOpen: true,
-            dinosaurs: [
-              {
-                name: 'Flyer',
-                species: 'Pteranodon',
-                isCarnivorous: true,
-                isSick: false,
-                lastFed: new Date(Date.now() - 3600000 * 3).toISOString() // 3 hours ago
-              }
-            ]
-          }
-        ];
+        // Fetch zones from the API
+        const apiZones = await client.getAllZones();
         
-        setZones(mockZones);
+        setZones(apiZones);
       } catch (err) {
         setError('Failed to load dinosaur data');
         console.error(err);
@@ -119,19 +51,32 @@ const Dinosaurs: React.FC = () => {
     fetchData();
   }, []);
   
-  const handleDinosaurAdded = () => {
-    // In a real app, we would fetch the updated data
-    // For this demo, we'll leave it as is, assuming the form would refresh the data
+  const handleDinosaurAdded = async () => {
+    try {
+      // Refresh zone data from API
+      const apiZones = await client.getAllZones();
+      setZones(apiZones);
+    } catch (err) {
+      setError(`Failed to refresh zones: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      console.error(err);
+    }
   };
   
   const handleSelectDinosaurToMove = (dinosaurName: string, zoneName: string) => {
     setSelectedDinosaur({ name: dinosaurName, zone: zoneName });
   };
   
-  const handleMoveDinosaur = () => {
-    // In a real app, we would fetch the updated data
-    // For demo, just close the modal
+  const handleMoveDinosaur = async () => {
     setSelectedDinosaur(null);
+    
+    try {
+      // Refresh zone data from API
+      const apiZones = await client.getAllZones();
+      setZones(apiZones);
+    } catch (err) {
+      setError(`Failed to refresh zones: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      console.error(err);
+    }
   };
   
   // Apply filters to dinosaurs

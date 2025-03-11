@@ -2,13 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { theme } from './theme';
 
 export const GlobalStyles = createGlobalStyle`
-  @font-face {
-    font-family: 'Jurassic Park';
-    src: url('/fonts/jurassic-park.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
   
   * {
     box-sizing: border-box;
@@ -44,11 +37,13 @@ export const GlobalStyles = createGlobalStyle`
     color: ${theme.colors.accent};
     margin-bottom: ${theme.spacing.md};
     letter-spacing: 1px;
+    text-transform: uppercase;
   }
   
   h1 {
     font-size: 3rem;
     text-shadow: 0 0 10px rgba(235, 190, 23, 0.5);
+    letter-spacing: 2px;
   }
   
   h2 {

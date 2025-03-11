@@ -20,7 +20,8 @@ namespace JurassicCode.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddSingleton<ParkService>()
+                .AddCors(options =>
             {
                 options.AddPolicy("AllowReactApp",
                     builder =>
@@ -29,9 +30,7 @@ namespace JurassicCode.API
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                     });
-            });
-            
-            services.AddControllers();
+            }).AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

@@ -40,7 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children}
       </main>
       <Footer>
-        <p>© 2025 Jurassic Park™ | InGen Corporation | All Rights Reserved</p>
+        <p>© 2025 Jurassic Code | All Rights Reserved</p>
       </Footer>
     </>
   );
