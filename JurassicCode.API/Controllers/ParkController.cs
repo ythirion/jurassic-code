@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using JurassicCode.Requests;
+using JurassicCode.Db2;
 
 namespace JurassicCode.API.Controllers;
 
@@ -9,6 +11,20 @@ namespace JurassicCode.API.Controllers;
 public class ParkController : ControllerBase
 {
     private readonly ParkService _parkService = new();
+
+    [HttpGet("GetAllZones")]
+    public IActionResult GetAllZones()
+    {
+        try
+        {
+            var zones = _parkService.GetAllZones();
+            return Ok(zones);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error retrieving zones: {ex.Message}");
+        }
+    }
 
     [HttpPost("AddZone")]
     public IActionResult AddZone([FromBody] ZoneRequest request)

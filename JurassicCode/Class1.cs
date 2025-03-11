@@ -150,4 +150,38 @@ public class ParkService
         }
         throw new Exception("Zone does not exist.");
     }
+    
+    public IEnumerable<Zone> GetAllZones()
+    {
+        foreach (var zoneEntry in DataAccessLayer._db.Zones)
+        {
+            var zone = new Zone 
+            { 
+                Name = zoneEntry.Value.ZoneCode, 
+                IsOpen = zoneEntry.Value.AccessStatus 
+            };
+            
+            // Get all dinosaurs for this zone
+            var dinosaurs = new List<Dinosaur>();
+            
+            foreach (var dinoCode in zoneEntry.Value.DinosaurCodes)
+            {
+                var dinoEntity = DataAccessLayer.GetDinosaurByName(dinoCode);
+                if (dinoEntity != null)
+                {
+                    dinosaurs.Add(new Dinosaur
+                    {
+                        Name = dinoEntity.CodeName,
+                        Species = dinoEntity.Species,
+                        IsCarnivorous = !dinoEntity.IsVegan,
+                        IsSick = dinoEntity.HealthStatus != null,
+                        LastFed = dinoEntity.FeedingTime
+                    });
+                }
+            }
+            
+            zone.Dinosaurs = dinosaurs;
+            yield return zone;
+        }
+    }
 }
