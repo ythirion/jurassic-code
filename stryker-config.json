@@ -1,0 +1,6 @@
+{
+  "stryker-config":
+  {
+      "solution": "JurassicCode-Lite.sln"
+  }
+}
