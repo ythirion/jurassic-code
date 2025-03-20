@@ -3,8 +3,12 @@
   {
       "solution": "JurassicCode-Lite.sln",
       "project-info": {
-      "name":  "github.com/ythirion/jurassic-code",
-      "version": "main"
-    }
+        "name":  "github.com/ythirion/jurassic-code",
+        "version": "main"
+      },
+      "test-projects": 
+      [
+        "JurassicCode.Tests/JurassicCode.Tests.csproj"
+      ]
   }
 }
