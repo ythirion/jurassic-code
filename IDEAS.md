@@ -4,17 +4,18 @@
 - [ ] `Analyze potential warnings` during compilation
 - [ ] `Analyze the code structure` to understand the architecture 
 - [ ] Check dependencies to understand potential system interactions
-  - [ ] Run `LibYear` analysis to know dependencies freshness
 - [ ] Read the `README` / related documentation
 - [ ] Look at the `git log`
 
 #### Gather metrics
 Our tools and development ecosystem allow us to quickly gather metrics to observe the code quality in a fairly factual manner:
 
+- [ ] Gather `statistics` (loc, cc, ...)
 - [ ] Retrieve `code coverage` 
 - [ ] Set up a `static code analysis` tool
 - [ ] Identify `hotspots` (where they are located)
 - [ ] Review the `tests quality`
+- [ ] Run `LibYear` analysis to know dependencies freshness
 
 - [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
 
