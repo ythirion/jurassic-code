@@ -98,6 +98,7 @@ const Zones: React.FC = () => {
       <PageHeader>
         <h1>Park Zones</h1>
         <p>Manage containment zones and monitor dinosaur activity</p>
+        {toggleLoading && <p><small>(Zone toggle in progress...)</small></p>}
       </PageHeader>
       
       {error && (

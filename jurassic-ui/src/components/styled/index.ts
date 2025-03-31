@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { theme } from '../../styles/theme';
 
-export const Button = styled.button`
+// Define prop types for styled components
+type ButtonProps = {
+  color?: 'danger' | 'success' | string;
+};
+
+export const Button = styled.button<ButtonProps>`
   background-color: ${props => props.color === 'danger' 
     ? theme.colors.danger 
     : props.color === 'success' 
@@ -50,7 +55,11 @@ export const Card = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
-export const DinoCard = styled(Card)`
+type DinoCardProps = {
+  isCarnivorous?: boolean;
+};
+
+export const DinoCard = styled(Card)<DinoCardProps>`
   position: relative;
   overflow: hidden;
   transition: all 0.3s ${theme.animations.easeOut};
@@ -71,7 +80,11 @@ export const DinoCard = styled(Card)`
   }
 `;
 
-export const ZoneCard = styled(Card)`
+type ZoneCardProps = {
+  isOpen?: boolean;
+};
+
+export const ZoneCard = styled(Card)<ZoneCardProps>`
   border: 2px solid ${props => props.isOpen ? theme.colors.success : theme.colors.danger};
   transition: all 0.3s ${theme.animations.easeOut};
   
@@ -153,7 +166,11 @@ export const Grid = styled.div`
   gap: ${theme.spacing.lg};
 `;
 
-export const Badge = styled.span`
+type BadgeProps = {
+  type?: 'carnivore' | 'herbivore' | 'sick' | string;
+};
+
+export const Badge = styled.span<BadgeProps>`
   display: inline-block;
   padding: ${theme.spacing.xs} ${theme.spacing.sm};
   background-color: ${props => {
@@ -206,7 +223,11 @@ export const LoadingSpinner = styled.div`
   }
 `;
 
-export const AlertBox = styled.div`
+type AlertBoxProps = {
+  type?: 'success' | 'error' | 'warning' | string;
+};
+
+export const AlertBox = styled.div<AlertBoxProps>`
   padding: ${theme.spacing.md};
   background-color: ${props => {
     if (props.type === 'success') return 'rgba(76, 175, 80, 0.2)';
@@ -297,7 +318,11 @@ export const Divider = styled.hr`
   margin: ${theme.spacing.md} 0;
 `;
 
-export const StatusIndicator = styled.div`
+type StatusIndicatorProps = {
+  status?: string;
+};
+
+export const StatusIndicator = styled.div<StatusIndicatorProps>`
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -360,7 +385,11 @@ export const TabList = styled.div`
   margin-bottom: ${theme.spacing.md};
 `;
 
-export const Tab = styled.button`
+type TabProps = {
+  active?: boolean;
+};
+
+export const Tab = styled.button<TabProps>`
   padding: ${theme.spacing.sm} ${theme.spacing.md};
   background: transparent;
   border: none;
@@ -374,7 +403,11 @@ export const Tab = styled.button`
   }
 `;
 
-export const TabPanel = styled.div`
+type TabPanelProps = {
+  active?: boolean;
+};
+
+export const TabPanel = styled.div<TabPanelProps>`
   display: ${props => props.active ? 'block' : 'none'};
 `;
 
@@ -497,7 +530,11 @@ export const DinoTracker = styled.div`
   }
 `;
 
-export const DinoBlip = styled.div`
+type DinoBlipProps = {
+  isCarnivorous?: boolean;
+};
+
+export const DinoBlip = styled.div<DinoBlipProps>`
   position: absolute;
   width: 10px;
   height: 10px;
@@ -533,7 +570,11 @@ export const DinoBlip = styled.div`
   }
 `;
 
-export const WarningFlash = styled.div`
+type WarningFlashProps = {
+  active?: boolean;
+};
+
+export const WarningFlash = styled.div<WarningFlashProps>`
   position: fixed;
   top: 0;
   left: 0;
