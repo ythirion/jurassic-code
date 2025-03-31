@@ -29,6 +29,7 @@ It exposes the API endpoints. It's the entry point of the application. It should
 - Use minimal API
 - Inject query handler interface from Application layer
 - Endpoints should be in [CONTEXT]Endpoints static class in `\Presentation\[CONTEXT]\[CONTEXT]Endpoints.cs` structured like this:
+
 ```csharp
 public static class [CONTEXT]Endpoints
 {
