@@ -31,9 +31,58 @@ Here are the results:
   - Some identified `vulnerabilities` are found in the `ui` and `api` dependencies
 - There are a mix of languages in the system: `C#`, `VB .NET`, `typescript`
 
-- [ ] `Analyze the code structure` to understand the architecture 
-- [ ] Check dependencies to understand potential system interactions
-  - [ ] Run `LibYear` analysis to know dependencies freshness
+
+- [x] `Analyze the code structure` to understand the architecture
+![Backend](img/solution-back.png)
+
+Here are some quick insights here:
+- 2 `Controllers`: `Park` and `WeatherForecast`
+  - Why do we care about Weather here?
+- Requests may be the `Dtos`
+  - Give an idea of the supported features: `Add Dinosaur`, `Move Dinosaur`, ...
+- Usage of Db2
+- Why is there a `ReflectionHelper`?
+- Bad naming: `Class1`, `Init`
+  - What are their purpose?
+- Where is the business logic here?
+  - Not really a clear architecture from the folder organization...
+
+![Front-end](img/front-hierarchy.png)
+- Pretty clear organization on the front-end with isolated components
+  - It exposes the different exposed features
+- `eslint` seems to be used here: quality at heart?
+- `vite` is used as well
+
+
+- [x] Check dependencies to understand potential system interactions
+  - List dependencies for the back-end part
+
+```shell
+dotnet list JurassicCode.sln package
+```
+
+![List dependencies](img/dependencies-back.png)
+
+Based on it, we can deduct:
+- Some integrations are made using [`Kafka`](https://www.nuget.org/packages/confluent.kafka/)
+- [`Polly`](https://www.nuget.org/packages/Polly) is used for which purpose? (Circuit breaker, Retry, ...)
+- [`Swashbuckle`](https://www.nuget.org/packages/Swashbuckle.AspNetCore) is referenced meaning an `Open API` may be generated to document the `API`
+- [`FluentAssertions`](https://www.nuget.org/packages/FluentAssertions) is used in the tests
+  - Making them readable?
+
+> Weird stuff: there is no `Db2` connector 🤔
+
+Let's do the same for the front-end:
+```shell
+npm list --depth=0
+```
+
+![Front dependencies](img/dependencies-front.png)
+- Nothing exotic here
+- [`axios`](https://www.npmjs.com/package/axios) may be used to call `APIs`
+
+
+- [ ] Run `LibYear` analysis to know dependencies freshness
 - [ ] Read the `README` / related documentation
 - [ ] Look at the `git log`
 
