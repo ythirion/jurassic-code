@@ -1,5 +1,7 @@
 ## Workshop ideas
 ### New code check-list
+- [x] Read the `README` / related documentation
+  - Pretty quick here, there is none...
 - [x] `Compile` to validate that we are able to compile/execute the code
   - We can run those commands
 ```shell
@@ -103,8 +105,8 @@ npx libyear
 
 More info about drift [here](https://github.com/jdanil/libyear?tab=readme-ov-file#metrics).
 
-- [ ] Read the `README` / related documentation
-- [ ] Look at the `git log`
+- [x] Look at the `git log`
+  - Not relevant here because we are on a workshop code 🙃
 
 #### Gather metrics
 Our tools and development ecosystem allow us to quickly gather metrics to observe the code quality in a fairly factual manner:
