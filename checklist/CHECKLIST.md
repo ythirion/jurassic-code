@@ -81,8 +81,28 @@ npm list --depth=0
 - Nothing exotic here
 - [`axios`](https://www.npmjs.com/package/axios) may be used to call `APIs`
 
+- [ ] Run [`LibYear`](https://libyear.com/) analysis to understand dependencies freshness
+  - Resources about how to [Keep Dependencies Up-to-Date](https://xtrem-tdd.netlify.app/Flavours/Practices/keep-dependencies-up-to-date)
 
-- [ ] Run `LibYear` analysis to know dependencies freshness
+```shell
+dotnet tool install -g libyear
+dotnet libyear
+```
+
+> We are almost 42 libyears behind for the back-end part... 
+
+![Libyear on back-end](img/dotnet-libyear.png)
+
+```shell
+npx libyear
+```
+
+> We are better on the front-end side with a drift lower than 1 libyear 
+
+![Libyear on front-end](img/js-libyear.png)
+
+More info about drift [here](https://github.com/jdanil/libyear?tab=readme-ov-file#metrics).
+
 - [ ] Read the `README` / related documentation
 - [ ] Look at the `git log`
 
