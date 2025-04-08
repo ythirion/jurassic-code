@@ -240,8 +240,82 @@ Here is the detailed report with explanations:
 - `Ignored`: The mutant wasn't tested because it is ignored.
   - Not count against your mutation score but will show up in reports.
 
-### Set up a `static code analysis` tool
-- [ ] Identify `hotspots` (where they are located)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fythirion%2Fjurassic-code%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ythirion/jurassic-code/main)
 
+#### Set up a `static code analysis` tool
+We can use [`SonarCloud`](https://www.sonarsource.com/products/sonarcloud/) to gather some metrics on our code:
+- `Bugs`
+- `Cyclomatic Complexity`
+- `Code Smells`
+- ...
 
-- [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
+Analysis has been configured and available [here](https://sonarcloud.io/summary/new_code?id=ythirion_jurassic-code)
+
+![Sonar overview](img/sonar-overview.png)
+
+Here are some insights from it:
+- `3300` lines of code: `2390` in ui, `41.7%` of duplication in `JurassicCode`
+- 4 weak Security Hotspots regarding usage of randomness
+- `3 high issues` related to:
+  - `Cognitive complexity`
+  - `Unused private field`
+  - `Encapsulation issue`
+
+![Sonar issues](img/sonar-issues.png)
+
+- `B` ranking for `Reliability` regarding this usage:
+
+```csharp
+// No encaspulation
+// Dictionary can be mutated from the outside world
+public readonly Dictionary<string, Entities.ZoneEntity> Zones = new Dictionary<string, Entities.ZoneEntity>();
+```
+
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ythirion_jurassic-code&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ythirion_jurassic-code) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ythirion_jurassic-code&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ythirion_jurassic-code) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ythirion_jurassic-code&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ythirion_jurassic-code)
+
+### Identify `hotspots`
+Conceptually, here is what we call a `Hotspot`:
+
+![Hotspot](img/hotspot.png)
+
+There are 3 things to identify `Hotspots`:
+- Calculate the Code Complexity for each file
+- Calculate the Churn score for each file
+- Cross the data to identify them
+
+We use the platform developed by `Adam Tornhill` called [`codescene`](https://codescene.com/) enabling `behavioral code analysis`:
+![Codescene overview](img/codescene-overview.png)
+
+The `Code Health` score is pretty high at `9.6` (on 10).
+
+Let's identify the `Hotspots`:
+![Hotspots analysis](img/hotspots.png)
+
+> The biggest file seems to be `index.ts` and the biggest hotspot is `Class1.cs` 🤨
+
+![Refactoring target](img/refactoring-target.png)
+
+This file is also identified as a `Refactoring Target` with a problematic `Code Health` at `8.41` because it:
+- Violates 2 rules:
+  - `Bumpy Road`: A Bumpy Road is a function that contains multiple chunks of nested conditional logic inside the same function. The deeper the nesting and the more bumps, the lower the code health.
+  - `Deep, Nested Complexity: Deep nested logic means that you have control structures like if-statements or loops inside other control structures.
+- Contains 2 warnings:
+  - `Many Conditionals`: Overall Code Complexity is measured by the mean cyclomatic complexity across all functions in the file. The lower the number, the better.
+  - `Complex Method`: A Complex Method has a high cyclomatic complexity. The recommended threshold for the C# language is a cyclomatic complexity lower than 9.
+
+With the `behavioral analysis` we can also identify `Knowledge Risks`:
+![Knowledge Risks](img/knowledge-risks.png)
+
+> Everything is a knowledge island meaning that only 1 person has worked on it...
+
+[![CodeScene Average Code Health](https://codescene.io/projects/65105/status-badges/average-code-health)](https://codescene.io/projects/65105)[![CodeScene Hotspot Code Health](https://codescene.io/projects/65105/status-badges/hotspot-code-health)](https://codescene.io/projects/65105)[![CodeScene System Mastery](https://codescene.io/projects/65105/status-badges/system-mastery)](https://codescene.io/projects/65105) [![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/65105)
+
+## Resources
+- [Mutation Testing technique explained](https://xtrem-tdd.netlify.app/Flavours/Testing/mutation-testing)
+- [Stryker - mutation tool](https://stryker-mutator.io/docs/stryker-net/introduction/)
+- [SonarCloud](https://www.sonarsource.com/products/sonarcloud/)
+- [Focus refactoring on what matters with Hotspots Analysis by Nicolas Carlo](https://understandlegacycode.com/blog/focus-refactoring-with-hotspots-analysis/)
+- [Codescene platform](https://codescene.com/)
+- Books:
+  - [Software Design X-Rays by Adam Tornhill](https://pragprog.com/titles/atevol/software-design-x-rays/)
+  - [Your Code as a Crime Scene by Adam Tornhill](https://pragprog.com/titles/atcrime2/your-code-as-a-crime-scene-second-edition/)
