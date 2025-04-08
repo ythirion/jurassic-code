@@ -119,7 +119,7 @@ dotnet tool install --global JetBrains.dotCover.GlobalTool
 dotnet dotcover test --dcReportType=HTML JurassicCode.sln
 ```
 
-![Dotcover](img/dotcover.png)
+![Dotcover](img/dotcover-coverage.png)
 
 > There is a pretty high code coverage on the back-end part with `81%`!!!
 
