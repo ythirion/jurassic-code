@@ -1,28 +1,25 @@
 ## Workshop ideas
 ### New code check-list
+- [ ] Read the `README` / related documentation
 - [ ] `Compile` to validate that we are able to compile/execute the code
 - [ ] `Analyze potential warnings` during compilation
-- [ ] `Analyze the code structure` to understand the architecture 
+- [ ] `Analyze the code structure` to understand the architecture
 - [ ] Check dependencies to understand potential system interactions
-- [ ] Read the `README` / related documentation
+- [ ] Run [`LibYear`](https://libyear.com/) analysis to understand dependencies freshness
 - [ ] Look at the `git log`
 
 #### Gather metrics
-Our tools and development ecosystem allow us to quickly gather metrics to observe the code quality in a fairly factual manner:
-
-- [ ] Gather `statistics` (loc, cc, ...)
-- [ ] Retrieve `code coverage` 
-- [ ] Set up a `static code analysis` tool
-- [ ] Identify `hotspots` (where they are located)
+- [ ] Retrieve `code coverage`
 - [ ] Review the `tests quality`
-- [ ] Run `LibYear` analysis to know dependencies freshness
-
-- [ ] (Optional) Detect Linguistic Anti-Patterns with `ArchUnit`
+- [ ] Mutation Testing
+- [ ] Set up a `static code analysis` tool
+- [ ] Identify `hotspots`
 
 ### AI actions
 Use [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)?
 
 - **Explain the product**: Which features are covered by the product.
+- **Clean code**: remove unused dependencies, remove useless stuff (unused usings, dead code, ...)
 - **Generate Diagram**: Generate mermaid diagrams from code. If no diagram type provided, please ask for the type to the user. Guide him based on the possibilities offered by mermaid (C4, class, sequence, ...)
 - **Rate code**: Score code quality
 - **Suggest Refactoring**: Suggest improvements for design and structure.
