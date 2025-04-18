@@ -182,3 +182,40 @@ Here is a clear overview of the main blockers in this repository:
 
   The code exhibits fundamental violations of software design principles making it brittle, difficult to maintain, and challenging to extend.
 ```
+
+## Clean the code
+```prompt
+Clean the code
+```
+
+The result is a cleanup plan that may be relevant at one point.
+
+```result
+⏺ I've created a comprehensive cleanup plan in the file cleanup-plan.md that addresses the major issues in the codebase. The plan is structured in four phases:
+
+  1. Architectural Restructuring:
+    - Remove static state and implement proper DI
+    - Eliminate reflection usage
+    - Create proper domain model abstraction
+  2. Domain Model Improvement:
+    - Fix mutable domain models
+    - Address primitive obsession
+    - Enforce collection encapsulation
+  3. Service Layer Cleanup:
+    - Break down the God Class (ParkService)
+    - Replace manual loops with LINQ
+    - Implement consistent error handling
+  4. Controller and UI Improvements:
+    - Implement proper input validation
+    - Fix exception handling in controllers
+    - Move business logic out of UI components
+```
+
+Detailed plan [here](05.cleanup-plan.md).
+
+### In-depth
+At this stage, I would like to identify and clean useless dependencies, dead code and unused files.
+
+```prompt
+Clean the code by identifying useless dependencies, dead code and unused files.
+```
