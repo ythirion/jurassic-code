@@ -219,3 +219,15 @@ At this stage, I would like to identify and clean useless dependencies, dead cod
 ```prompt
 Clean the code by identifying useless dependencies, dead code and unused files.
 ```
+
+![05.cleanup-explanations.png](img/05.cleanup-explanations.png)
+
+It has created some files for us:
+- [dead-code-analysis.md](cleanup/dead-code-analysis.md): A detailed analysis of dead code including
+  - Unused dependencies
+  - Dead code
+  - Unused files
+  - Recommended Cleanup Actions
+- [cleanup-summary.md](cleanup/cleanup-summary.md): A summary of the cleanup plan
+- [component-cleanup.md](cleanup/component-cleanup.md): A detailed analysis of the components
+- [cleanup-script.sh](cleanup/cleanup-script.sh): A shell script to automate this cleanup
