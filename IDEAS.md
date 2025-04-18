@@ -19,9 +19,9 @@
 Use [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)?
 
 - **Explain the product**: Which features are covered by the product.
-- **Clean code**: remove unused dependencies, remove useless stuff (unused usings, dead code, ...)
 - **Generate Diagram**: Generate mermaid diagrams from code. If no diagram type provided, please ask for the type to the user. Guide him based on the possibilities offered by mermaid (C4, class, sequence, ...)
 - **Rate code**: Score code quality
+- **Clean code**: remove unused dependencies, remove useless stuff (unused usings, dead code, ...)
 - **Suggest Refactoring**: Suggest improvements for design and structure.
 - **Find Bugs**: Analyze code and errors to identify issues.
 - **Hints**: Recommend best practices based on the code.
