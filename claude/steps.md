@@ -231,3 +231,29 @@ It has created some files for us:
 - [cleanup-summary.md](cleanup/cleanup-summary.md): A summary of the cleanup plan
 - [component-cleanup.md](cleanup/component-cleanup.md): A detailed analysis of the components
 - [cleanup-script.sh](cleanup/cleanup-script.sh): A shell script to automate this cleanup
+
+Let's run the script to clean the code:
+```bash
+sh claude/cleanup/cleanup-script.sh
+```
+
+![05.run-clean-up.png](img/05.run-clean-up.png)
+
+![05.files-changed.png](img/05.files-changed.png)
+
+> Oups it seems that the script broke the csproj file. Let's fix it.
+
+![05.failure.png](img/05.failure.png)
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+</Project>
+```
+
+The front and back are now patched with fewer files and dependencies 🦕
