@@ -121,3 +121,64 @@ Generate a sequence diagram using mermaid syntax.
 ![Sequence Diagram](img/03.add-dinosaur-sequence-diagram.png)
 
 Detailed result [here](03.dinosaur-sequence.md)
+
+## Rate Code Quality
+```prompt
+Rate code: Score code quality
+```
+
+```result
+1. Architecture and Design: 3/10
+2. Code Organization and Style: 4/10
+3. Code Smells and Anti-Patterns: 2/10
+4. Performance Considerations: 5/10
+5. Testing: 6/10
+6. Frontend Code Quality: 7/10
+
+Overall score: 4/10
+```
+
+> Once again, it may go into too many details at this stage.
+
+Detailed result [here](04.code-quality.md)
+
+### In-depth
+```prompt
+Examine the code as a software craft coach with 20 years of experience. 
+Rate the source code quality based on Clean Code, SOLID, DRY, OOP, Gof, FP principles, etc.
+You will respond by giving the code a letter grade (A, B+, D-, etc...), listing smells (name only).
+```
+
+More about code smells with [refactoring guru](https://refactoring.guru/fr/refactoring/smells).
+
+Here is a clear overview of the main blockers in this repository:
+
+```result
+⏺ Grade: D-
+
+  Code smells:
+  - Anemic Domain Model
+  - Primitive Obsession
+  - Global State
+  - Broken Encapsulation
+  - Inappropriate Intimacy (reflection)
+  - God Class
+  - Shotgun Surgery
+  - Arrow Code
+  - Singleton Abuse
+  - Feature Envy
+  - Law of Demeter Violation
+  - DIP Violation
+  - SRP Violation
+  - Mutable State
+  - Collection Exposure
+  - Temporal Coupling
+  - Leaky Abstraction
+  - Foreign Language Comments
+  - Magic Numbers/Strings
+  - Exception Handling Smell
+  - Duplicate Code
+  - Business Logic in UI
+
+  The code exhibits fundamental violations of software design principles making it brittle, difficult to maintain, and challenging to extend.
+```
