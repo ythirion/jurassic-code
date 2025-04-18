@@ -30,6 +30,12 @@ Use [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-cod
 - **Generate missing automated tests**
 - **Architecture redesign**
 
+
+### Conclusion
+- Limits of AI: hallucinations, not magic, Augmented developers
+- Financial cost of our Workshop
+- Physical cost with [ecologits calculator](https://huggingface.co/spaces/genai-impact/ecologits-calculator)
+
 #### From pitch
 - **Taming Complexity of the Fossil Code**
 	- ✅ Generate sequence diagrams to illuminate hidden logic and relationships.
