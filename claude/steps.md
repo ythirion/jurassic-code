@@ -30,7 +30,7 @@ For each Item / Feature, I want :
 - Examples / Test Cases that may have been used to create the feature 
 ```
 
-A detailed backlog has been created [here](backlog.md)
+A detailed backlog has been created [here](01.backlog.md)
 
 ## Explain the architecture
 ```prompt
@@ -94,9 +94,26 @@ The C4 model is a framework for visualizing the architecture of software systems
 Here is some documentation regarding the [C4 Model](https://c4model.com/) by Simon Brown.
 
 The diagrams are generated using the [mermaid](https://mermaid-js.github.io/mermaid/#/) syntax, which is a JavaScript-based diagramming and charting tool that uses Markdown-inspired text definitions.
-Detailed result is available [here](C4.md).
+Detailed result is available [here](02.C4.md).
 
 Here is a preview of the diagrams:
 ![Context Diagram](img/02.container-diagram.png)
 
 ![Component Diagram](img/02.component-diagram.png)
+
+## Detail a flow
+```prompt
+Explain in-depth the "Dinosaur management" feature implementation from front to back.
+```
+
+![Dinosaur management](img/03.dinosaur-management.png)
+
+> At this stage, I don't necessarily want to know the code, but I want to understand the flow of the feature.
+
+Detailed result [here](03.dinosaur-management.md)
+
+### In-depth
+```prompt
+Explain in-depth the "Dinosaur management" feature implementation from front to back.
+Generate a sequence diagram using mermaid syntax.
+```
