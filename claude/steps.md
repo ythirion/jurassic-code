@@ -117,3 +117,7 @@ Detailed result [here](03.dinosaur-management.md)
 Explain in-depth the "Dinosaur management" feature implementation from front to back.
 Generate a sequence diagram using mermaid syntax.
 ```
+
+![Sequence Diagram](img/03.add-dinosaur-sequence-diagram.png)
+
+Detailed result [here](03.dinosaur-sequence.md)
