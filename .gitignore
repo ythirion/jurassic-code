@@ -131,6 +131,8 @@ coverage.xml
 .hypothesis/
 *.mocha/
 reports/
+playwright-report/
+test-results/
 
 # Environments
 .env

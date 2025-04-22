@@ -269,3 +269,177 @@ Generated tests available [here](06.generated-tests.md) result.
 
 Poor quality tests are persisted in the `tests` folder...
 
+### In-depth
+```prompt
+Generate tests to increase code coverage before adding new feature and iterating on this code.
+Iterate on the existing ones as well to increase their quality.
+
+Those tests must be at different levels :
+
+- Use Case testing : validate business logic at the lower level
+	- Design 1 test class per supported Use Case
+	- Inside each test class split the tests in passing / failing (in an inner class)
+		- Failing test cases must be specified so that is fluent to read 
+
+public class Remove_A_Dinosaur 
+{
+	...
+	
+	public class Fail 
+	{
+		[Fact]
+		public void When_No_Dinosaur_Found() 
+		{
+			...
+		}
+	}
+}
+
+- Integration Testing (at the API level) : validate integration between back-end layers in black box mode
+  - Validate basic test cases by using "Verify" library and check only the serialized json result
+  - Check for failure what is the result code and the corresponding answer
+  - Failing test cases must be specified so that is fluent to read
+- Front testing : add a basic smoke test using playwright in the jurassic-ui in typescript
+  - The purpose of this test is to ensure that the app is starting well and the actions are available to the users
+
+
+Make sure that the tests are ensuring the 3A pattern and are behaviors oriented :
+- Arrange
+- Act
+- Assert
+
+Do not write any comments in tests. they must be self-sufficient.
+
+You can use Verify to implement characterization tests when it does make sense.
+
+Create Test Data Builders that are business oriented to help instantiate objects for our tests :
+
+[BAD]
+var address = new AddressBuilder()
+    .WithoutStreet()
+    .WithoutPostalCode()
+    .WithCity("Paris")
+    .Build();
+    
+ 
+[GOOD]
+var address = ANewAddress()
+	.At("Bordeaux")
+	.InStreet("Rue Sainte Catherine")
+	.WithPostalCode(_ => _.WithNumber("1 Bis"))
+	.Build();   
+
+In the Builders expose only what is relevant for the purpose of the tests : example a dino name should not condition the result of a business behavior.
+
+[BAD]
+var dinosaur = ATRex().WithName("Rexy").Build();
+
+[GOOD]
+// Name is not relevant for the beh
+var dinosaur = ATRex().Build();
+
+Assertions must be business oriented as well.
+Do not write them with Fluent Assertions and favor a more expressive way to assert changes. Do this by creating Extensions methods like described below :
+
+[BAD]
+targetZoneDinosaurs.Should().Contain(d => d.Name == dinosaur.Name);
+
+[GOOD]
+targetZoneDinosaurs.MustContain(dinosaur.Name);
+
+[BAD]
+var zones = _parkService.GetAllZones();
+zones.Should().Contain(z => z.Name == zoneName && z.IsOpen == isOpen);
+
+[Good]
+var zones = _parkService.GetAllZones();
+// An extension method
+zones.HasAnOpenZone(zoneName);
+
+They should focus on state changes and not verify an entire object graph -> what is expected as a state mutation.
+
+
+Be sure to generate business oriented tests to put quality inside and be sure that mutation testing won't identify anything.
+```
+
+It creates:
+![06.back-end-generated-tests.png](img/06.back-end-generated-tests.png)
+
+> At first run the project did not compile anymore... I had to ask `Claude` to fix it
+
+> The tests are failing... #nomagic
+
+![06.failed-tests.png](img/06.failed-tests.png)
+
+Tests are not reliable. We have not the same results depending on the way we run them...
+
+![06.not-reliable.png](img/06.not-reliable.png)
+
+Regarding the frontend, it created a test using Playwright:
+
+```typescript
+@@ -0,0 +1,51 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('Jurassic Park UI Smoke Tests', () => {
+  test('should load the dashboard page', async ({ page }) => {
+    await page.goto('/');
+    
+    await expect(page.locator('h1')).toContainText('Park Dashboard');
+    await expect(page).toHaveTitle(/Jurassic Park/);
+  });
+
+  test('should navigate between main pages', async ({ page }) => {
+    await page.goto('/');
+    
+    // Navigation menu should be visible
+    const navigation = page.locator('nav');
+    await expect(navigation).toBeVisible();
+    
+    // Navigate to Zones page
+    await page.getByRole('link', { name: 'Zones' }).click();
+    await expect(page.locator('h1')).toContainText('Zones');
+    
+    // Navigate to Dinosaurs page
+    await page.getByRole('link', { name: 'Dinosaurs' }).click();
+    await expect(page.locator('h1')).toContainText('Dinosaurs');
+    
+    // Navigate to Compatibility page
+    await page.getByRole('link', { name: 'Compatibility' }).click();
+    await expect(page.locator('h1')).toContainText('Compatibility');
+    
+    // Navigate back to Dashboard
+    await page.getByRole('link', { name: 'Dashboard' }).click();
+    await expect(page.locator('h1')).toContainText('Park Dashboard');
+  });
+  
+  test('should display core UI components', async ({ page }) => {
+    await page.goto('/zones');
+    
+    // Check if add zone form exists
+    const addZoneForm = page.locator('form').filter({ hasText: 'Add Zone' });
+    await expect(addZoneForm).toBeVisible();
+    
+    // Go to dinosaurs page and check if add dinosaur form exists
+    await page.goto('/dinosaurs');
+    const addDinoForm = page.locator('form').filter({ hasText: 'Add Dinosaur' });
+    await expect(addDinoForm).toBeVisible();
+    
+    // Check if move dinosaur form exists
+    const moveDinoForm = page.locator('form').filter({ hasText: 'Move Dinosaur' });
+    await expect(moveDinoForm).toBeVisible();
+  });
+});
+```
+
+Unfortunately, it does not work as expected. We will need to fix it.
+
+![06.front-failure.png](img/06.front-failure.png)
+
+Here is why:
+![06.front-failure-details.png](img/06.front-failure-details.png)
+
+Here is the cost:
+![06.cost.png](img/06.cost.png)
+
+Result code is available under `/generated-tests`.
