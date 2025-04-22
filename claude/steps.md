@@ -257,3 +257,15 @@ sh claude/cleanup/cleanup-script.sh
 ```
 
 The front and back are now patched with fewer files and dependencies 🦕
+
+## Generate tests
+```prompt
+generate tests to increase code coverage before adding new feature and iterating on this code
+```
+
+![Generate tests](img/06.generate-tests.png)
+
+Generated tests available [here](06.generated-tests.md) result.
+
+Poor quality tests are persisted in the `tests` folder...
+
