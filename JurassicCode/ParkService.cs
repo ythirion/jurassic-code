@@ -1,4 +1,5 @@
-using JurassicCode.Db2;
+using JurassicCode.DataAccess.Repositories;
+using JurassicCode.DataAccess.Entities;
 
 namespace JurassicCode;
 
@@ -15,7 +16,7 @@ public partial class ParkService : IParkService
 
     public void AddZone(string name, bool isOpen)
     {
-        foreach (var zone in DataAccessLayer._db.Zones)
+        foreach (var zone in DataAccessLayer.GetAllZones())
         { if (name != null)
             {
                 if (zone.Value.ZoneCode != null)
@@ -24,23 +25,24 @@ public partial class ParkService : IParkService
                 }
             }
         } 
-        DataAccessLayer.SaveZone(new Zone { Name = name, IsOpen = isOpen });
+        DataAccessLayer.SaveZone(name, isOpen, new List<string>());
     }
     
     public void AddDinosaurToZone(string zoneName, Dinosaur dinosaur)
     {
         bool zoneFound = false;
-        for (int i = 0; i < DataAccessLayer._db.Zones.Count; i++)
+        for (int i = 0; i < DataAccessLayer.GetZoneCount(); i++)
         {
-            if (DataAccessLayer._db.Zones.ElementAt(i).Value.ZoneCode == zoneName && DataAccessLayer._db.Zones.ElementAt(i).Value.AccessStatus == true)
+            var zoneEntry = DataAccessLayer.GetZoneAtIndex(i);
+            if (zoneEntry.Value.ZoneCode == zoneName && zoneEntry.Value.AccessStatus == true)
             {
-                var dinosaurEntity = new Entities.DinosaurEntity
+                var dinosaurEntity = new DinosaurEntity
                 {
                     CodeName = dinosaur.Name,
                     Species = dinosaur.Species,
-                    IsVegan = !dinosaur.IsCarnivorous,
-                    HealthStatus = dinosaur.IsSick ? "Sick" : null,
-                    FeedingTime = dinosaur.LastFed
+                    IsCarnivorous = dinosaur.IsCarnivorous,
+                    IsSick = dinosaur.IsSick,
+                    LastFed = dinosaur.LastFed
                 };
                 DataAccessLayer.SaveDinosaur(zoneName, dinosaurEntity);
                 
@@ -57,18 +59,19 @@ public partial class ParkService : IParkService
 
     public void MoveDinosaur(string fromZoneName, string toZoneName, string dinosaurName)
     {
-        Entities.ZoneEntity fromZone = null;
-        Entities.ZoneEntity toZone = null;
+        ZoneEntity fromZone = null;
+        ZoneEntity toZone = null;
 
-        for (int i = 0; i < DataAccessLayer._db.Zones.Count; i++)
+        for (int i = 0; i < DataAccessLayer.GetZoneCount(); i++)
         {
-            if (DataAccessLayer._db.Zones.ElementAt(i).Key == fromZoneName)
+            var zoneEntry = DataAccessLayer.GetZoneAtIndex(i);
+            if (zoneEntry.Key == fromZoneName)
             {
-                fromZone = DataAccessLayer._db.Zones.ElementAt(i).Value;
+                fromZone = zoneEntry.Value;
             }
-            if (DataAccessLayer._db.Zones.ElementAt(i).Key == toZoneName && DataAccessLayer._db.Zones.ElementAt(i).Value.AccessStatus == true)
+            if (zoneEntry.Key == toZoneName && zoneEntry.Value.AccessStatus == true)
             {
-                toZone = DataAccessLayer._db.Zones.ElementAt(i).Value;
+                toZone = zoneEntry.Value;
             }
         }
 
@@ -98,14 +101,7 @@ public partial class ParkService : IParkService
 
     public void ToggleZone(string zoneName)
     {
-        for (int i = 0; i < DataAccessLayer._db.Zones.Count; i++)
-        {
-            if (DataAccessLayer._db.Zones.ElementAt(i).Value.ZoneCode == zoneName)
-            {
-                DataAccessLayer._db.Zones.ElementAt(i).Value.AccessStatus = !DataAccessLayer._db.Zones.ElementAt(i).Value.AccessStatus;
-                break;
-            }
-        }
+        DataAccessLayer.ToggleZoneStatus(zoneName);
     }
 
     public bool CanSpeciesCoexist(string species1, string species2)
@@ -129,7 +125,7 @@ public partial class ParkService : IParkService
 
     public IEnumerable<Dinosaur> GetDinosaursInZone(string zoneName)
     {
-        foreach (var zone in DataAccessLayer._db.Zones)
+        foreach (var zone in DataAccessLayer.GetAllZones())
         {
             if (zone.Value.ZoneCode == zoneName)
             {
@@ -141,9 +137,9 @@ public partial class ParkService : IParkService
                     {
                         Name = dino.CodeName,
                         Species = dino.Species,
-                        IsCarnivorous = !dino.IsVegan,
-                        IsSick = dino.HealthStatus != null,
-                        LastFed = dino.FeedingTime
+                        IsCarnivorous = dino.IsCarnivorous,
+                        IsSick = dino.IsSick,
+                        LastFed = dino.LastFed
                     };
                 }
                 yield break;
@@ -154,7 +150,7 @@ public partial class ParkService : IParkService
     
     public IEnumerable<Zone> GetAllZones()
     {
-        foreach (var zoneEntry in DataAccessLayer._db.Zones)
+        foreach (var zoneEntry in DataAccessLayer.GetAllZones())
         {
             var zone = new Zone 
             { 
@@ -173,9 +169,9 @@ public partial class ParkService : IParkService
                     {
                         Name = dinoEntity.CodeName,
                         Species = dinoEntity.Species,
-                        IsCarnivorous = !dinoEntity.IsVegan,
-                        IsSick = dinoEntity.HealthStatus != null,
-                        LastFed = dinoEntity.FeedingTime
+                        IsCarnivorous = dinoEntity.IsCarnivorous,
+                        IsSick = dinoEntity.IsSick,
+                        LastFed = dinoEntity.LastFed
                     });
                 }
             }

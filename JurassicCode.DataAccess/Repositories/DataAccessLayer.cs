@@ -55,5 +55,29 @@ namespace JurassicCode.DataAccess.Repositories
             _db.GetDinosaurs().TryGetValue(dinoCode, out var dino);
             return dino;
         }
+        
+        // Methods to support existing ParkService implementation
+        public static IEnumerable<KeyValuePair<string, ZoneEntity>> GetAllZones()
+        {
+            return _db.Zones;
+        }
+        
+        public static int GetZoneCount()
+        {
+            return _db.Zones.Count;
+        }
+        
+        public static KeyValuePair<string, ZoneEntity> GetZoneAtIndex(int index)
+        {
+            return _db.Zones.ElementAt(index);
+        }
+        
+        public static void ToggleZoneStatus(string zoneName)
+        {
+            if (_db.Zones.TryGetValue(zoneName, out var zone))
+            {
+                zone.AccessStatus = !zone.AccessStatus;
+            }
+        }
     }
 }
