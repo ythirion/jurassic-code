@@ -3,5 +3,19 @@
         {
             "file": "copilot-instructions/commit-message.md"
         }
+    ],
+    "github.copilot.chat.codeGeneration.instructions": [
+        {
+            "file": "copilot-instructions/for-workshop.md"
+        },
+        {
+            "file": "copilot-instructions/csharp.md"
+        },
+        {
+            "file": "copilot-instructions/typescript.md"
+        },
+        {
+            "file": "copilot-instructions/database.md"
+        }
     ]
 }
