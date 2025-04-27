@@ -22,6 +22,9 @@
         },
         {
             "file": "copilot-instructions/test-practices.md"
+        },
+        {
+            "file": "copilot-instructions/copilot-suggestions.md"
         }
     ]
 }
