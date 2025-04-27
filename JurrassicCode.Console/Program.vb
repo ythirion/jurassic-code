@@ -1,6 +1,7 @@
 Imports System
 Imports JurassicCode
-Imports JurassicCode.Db2
+Imports JurassicCode.DataAccess.Repositories
+Imports JurassicCode.DataAccess.Entities
 
 Module Program
     Sub Main()

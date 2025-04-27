@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using JurassicCode.Requests;
-using JurassicCode.Db2;
 
 namespace JurassicCode.API.Controllers;
 

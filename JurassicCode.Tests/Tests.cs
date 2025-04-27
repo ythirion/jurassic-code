@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using JurassicCode.Db2;
+using JurassicCode.DataAccess.Repositories;
+using JurassicCode.DataAccess.Entities;
 using Xunit;
 
 namespace JurassicCode.Tests
