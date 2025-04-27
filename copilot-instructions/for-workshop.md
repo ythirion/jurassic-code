@@ -6,3 +6,7 @@ Do not use either any information for the following directories:
 - wip
 
 Whenever you need to build the backend, specify that the solution is JurassicCode.sln in the command line
+
+Regardless of any changes you want to perform, you have to ask me first if it's the right one.
+
+When refactoring you have to identify the smallest non-breaking change and ask me for confirmation.
