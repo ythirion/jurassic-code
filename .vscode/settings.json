@@ -16,6 +16,9 @@
         },
         {
             "file": "copilot-instructions/database.md"
+        },
+        {
+            "file": "copilot-instructions/best-practices.md"
         }
     ]
 }
