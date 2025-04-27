@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurassicCode", "JurassicCode\JurassicCode.csproj", "{68999C46-A9E4-4EE7-A899-119B18E3333F}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "JurrassicCode.Console", "JurrassicCode.Console\JurrassicCode.Console.vbproj", "{DB0E5E34-0A89-4BA3-81ED-F91E6DD8A617}"
@@ -7,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurassicCode.Tests", "JurassicCode.Tests\JurassicCode.Tests.csproj", "{D208D5FF-11F1-4A5F-9FE2-AA0E45E41EB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurassicCode.API", "JurassicCode.API\JurassicCode.API.csproj", "{19605E22-6737-4B61-ABA4-2C0763F5BBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JurassicCode.DataAccess", "JurassicCode.DataAccess\JurassicCode.DataAccess.csproj", "{04F3F057-5957-496E-AFBF-CCBE8D9B3D0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +33,9 @@ Global
 		{19605E22-6737-4B61-ABA4-2C0763F5BBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19605E22-6737-4B61-ABA4-2C0763F5BBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19605E22-6737-4B61-ABA4-2C0763F5BBDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F3F057-5957-496E-AFBF-CCBE8D9B3D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F3F057-5957-496E-AFBF-CCBE8D9B3D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F3F057-5957-496E-AFBF-CCBE8D9B3D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F3F057-5957-496E-AFBF-CCBE8D9B3D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

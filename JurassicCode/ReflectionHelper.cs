@@ -12,6 +12,11 @@ public static class ReflectionHelper
             throw new ArgumentNullException(nameof(obj));
         }
 
+        if (string.IsNullOrEmpty(fieldName))
+        {
+            throw new ArgumentException("Field name cannot be null or empty.", nameof(fieldName));
+        }
+
         var type = obj.GetType();
         var fieldInfo = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
 

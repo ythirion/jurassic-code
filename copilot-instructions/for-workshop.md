@@ -10,3 +10,4 @@ Whenever you need to build the backend, specify that the solution is JurassicCod
 Regardless of any changes you want to perform, you have to ask me first if it's the right one.
 
 When refactoring you have to identify the smallest non-breaking change and ask me for confirmation.
+If you need to introduce breaking changes, use the strangler-fig pattern
