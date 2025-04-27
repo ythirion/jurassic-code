@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using JurassicCode.DataAccess.Repositories;
 using JurassicCode.DataAccess.Entities;
+using JurassicCode.DataAccess.Interfaces;
 using Xunit;
 
 namespace JurassicCode.Tests
@@ -10,16 +11,18 @@ namespace JurassicCode.Tests
     public class ParkServiceTests
     {
         private readonly ParkService _parkService;
+        private readonly IDataAccessLayer _dataAccessLayer;
 
         public ParkServiceTests()
         {
-            _parkService = new ParkService();
+            _dataAccessLayer = new DataAccessLayerService();
+            _parkService = new ParkService(_dataAccessLayer);
         }
 
         [Fact]
         public void TestAddAndMoveDinosaursWithZoneToggle()
         {
-            DataAccessLayer.Init(new Database());
+            _dataAccessLayer.Init(new Database());
             _parkService.AddZone("Test Zone 1", true);
             _parkService.AddZone("Test Zone 2", false);
             
@@ -60,7 +63,7 @@ namespace JurassicCode.Tests
         [Fact]
         public void TestZoneToggleAndDinosaurCount()
         {
-            DataAccessLayer.Init(new Database());
+            _dataAccessLayer.Init(new Database());
             _parkService.AddZone("Test Zone 1", true);
             _parkService.AddZone("Test Zone 2", false);
 
@@ -82,7 +85,7 @@ namespace JurassicCode.Tests
         [Fact]
         public void TestComplexDinosaurMovements()
         {
-            DataAccessLayer.Init(new Database());
+            _dataAccessLayer.Init(new Database());
             _parkService.AddZone("Test Zone 1", true);
             _parkService.AddZone("Test Zone 2", false);
 

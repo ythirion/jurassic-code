@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using JurassicCode;
 using System;
+using JurassicCode.DataAccess.Repositories;
+using JurassicCode.DataAccess.Entities;
+using JurassicCode.DataAccess.Interfaces;
 
 namespace JurassicCode.API
 {
@@ -21,7 +24,9 @@ namespace JurassicCode.API
                 
         private static void InitializePark()
         {
-            var parkService = new ParkService();
+            IDataAccessLayer dataAccessLayer = new DataAccessLayerService();
+            dataAccessLayer.Init();
+            var parkService = new ParkService(dataAccessLayer);
             
             // Add zones
             try 

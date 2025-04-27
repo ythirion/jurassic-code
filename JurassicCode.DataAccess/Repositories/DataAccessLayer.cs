@@ -5,7 +5,7 @@ using JurassicCode.DataAccess.Entities;
 
 namespace JurassicCode.DataAccess.Repositories
 {
-    public static class DataAccessLayer
+    internal static class DataAccessLayer
     {
         private static Database _db;
         

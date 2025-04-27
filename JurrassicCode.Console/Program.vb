@@ -2,11 +2,14 @@ Imports System
 Imports JurassicCode
 Imports JurassicCode.DataAccess.Repositories
 Imports JurassicCode.DataAccess.Entities
+Imports JurassicCode.DataAccess.Interfaces
 
 Module Program
     Sub Main()
-        Dim parkService As New ParkService()
-        DataAccessLayer.Init(new Database())
+        Dim dataAccessLayer As IDataAccessLayer = New DataAccessLayerService()
+        dataAccessLayer.Init(New Database())
+        
+        Dim parkService As New ParkService(dataAccessLayer)
 
         parkService.AddZone("Ismaloya Mountains", True)
         parkService.AddZone("Western Ridge", True)

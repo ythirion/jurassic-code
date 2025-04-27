@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using JurassicCode.DataAccess.Interfaces;
+using JurassicCode.DataAccess.Repositories;
 
 namespace JurassicCode.API
 {
@@ -20,6 +22,9 @@ namespace JurassicCode.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register DataAccess Layer
+            services.AddSingleton<IDataAccessLayer, DataAccessLayerService>();
+
             services.AddSingleton<ParkService>()
                 .AddCors(options =>
             {

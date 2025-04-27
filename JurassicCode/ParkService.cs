@@ -1,4 +1,4 @@
-using JurassicCode.DataAccess.Repositories;
+using JurassicCode.DataAccess.Interfaces;
 using JurassicCode.DataAccess.Entities;
 
 namespace JurassicCode;
@@ -8,15 +8,18 @@ using System.Collections.Generic;
 
 public partial class ParkService : IParkService
 {
-    public ParkService()
+    private readonly IDataAccessLayer _dataAccessLayer;
+
+    public ParkService(IDataAccessLayer dataAccessLayer)
     {
-        DataAccessLayer.Init();
+        _dataAccessLayer = dataAccessLayer ?? throw new ArgumentNullException(nameof(dataAccessLayer));
+        _dataAccessLayer.Init();
         Init();
     }
 
     public void AddZone(string name, bool isOpen)
     {
-        foreach (var zone in DataAccessLayer.GetAllZones())
+        foreach (var zone in _dataAccessLayer.GetAllZones())
         { if (name != null)
             {
                 if (zone.Value.ZoneCode != null)
@@ -25,15 +28,15 @@ public partial class ParkService : IParkService
                 }
             }
         } 
-        DataAccessLayer.SaveZone(name, isOpen, new List<string>());
+        _dataAccessLayer.SaveZone(name, isOpen, new List<string>());
     }
     
     public void AddDinosaurToZone(string zoneName, Dinosaur dinosaur)
     {
         bool zoneFound = false;
-        for (int i = 0; i < DataAccessLayer.GetZoneCount(); i++)
+        for (int i = 0; i < _dataAccessLayer.GetZoneCount(); i++)
         {
-            var zoneEntry = DataAccessLayer.GetZoneAtIndex(i);
+            var zoneEntry = _dataAccessLayer.GetZoneAtIndex(i);
             if (zoneEntry.Value.ZoneCode == zoneName && zoneEntry.Value.AccessStatus == true)
             {
                 var dinosaurEntity = new DinosaurEntity
@@ -44,7 +47,7 @@ public partial class ParkService : IParkService
                     IsSick = dinosaur.IsSick,
                     LastFed = dinosaur.LastFed
                 };
-                DataAccessLayer.SaveDinosaur(zoneName, dinosaurEntity);
+                _dataAccessLayer.SaveDinosaur(zoneName, dinosaurEntity);
                 
                 
                 zoneFound = true;
@@ -62,9 +65,9 @@ public partial class ParkService : IParkService
         ZoneEntity fromZone = null;
         ZoneEntity toZone = null;
 
-        for (int i = 0; i < DataAccessLayer.GetZoneCount(); i++)
+        for (int i = 0; i < _dataAccessLayer.GetZoneCount(); i++)
         {
-            var zoneEntry = DataAccessLayer.GetZoneAtIndex(i);
+            var zoneEntry = _dataAccessLayer.GetZoneAtIndex(i);
             if (zoneEntry.Key == fromZoneName)
             {
                 fromZone = zoneEntry.Value;
@@ -101,7 +104,7 @@ public partial class ParkService : IParkService
 
     public void ToggleZone(string zoneName)
     {
-        DataAccessLayer.ToggleZoneStatus(zoneName);
+        _dataAccessLayer.ToggleZoneStatus(zoneName);
     }
 
     public bool CanSpeciesCoexist(string species1, string species2)
@@ -125,11 +128,11 @@ public partial class ParkService : IParkService
 
     public IEnumerable<Dinosaur> GetDinosaursInZone(string zoneName)
     {
-        foreach (var zone in DataAccessLayer.GetAllZones())
+        foreach (var zone in _dataAccessLayer.GetAllZones())
         {
             if (zone.Value.ZoneCode == zoneName)
             {
-                var dinosaursInZone = DataAccessLayer.GetDinosaurs(zoneName);
+                var dinosaursInZone = _dataAccessLayer.GetDinosaurs(zoneName);
 
                 foreach (var dino in dinosaursInZone)
                 {
@@ -150,7 +153,7 @@ public partial class ParkService : IParkService
     
     public IEnumerable<Zone> GetAllZones()
     {
-        foreach (var zoneEntry in DataAccessLayer.GetAllZones())
+        foreach (var zoneEntry in _dataAccessLayer.GetAllZones())
         {
             var zone = new Zone 
             { 
@@ -162,7 +165,7 @@ public partial class ParkService : IParkService
             
             foreach (var dinoCode in zoneEntry.Value.DinosaurCodes)
             {
-                var dinoEntity = DataAccessLayer.GetDinosaurByName(dinoCode);
+                var dinoEntity = _dataAccessLayer.GetDinosaurByName(dinoCode);
                 if (dinoEntity != null)
                 {
                     dinosaurs.Add(new Dinosaur
