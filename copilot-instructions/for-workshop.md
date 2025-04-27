@@ -4,3 +4,5 @@ Do not use either any information for the following directories:
 - claude
 - context
 - wip
+
+Whenever you need to build the backend, specify that the solution is JurassicCode.sln in the command line
