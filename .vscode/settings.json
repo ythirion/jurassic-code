@@ -19,6 +19,9 @@
         },
         {
             "file": "copilot-instructions/best-practices.md"
+        },
+        {
+            "file": "copilot-instructions/test-practices.md"
         }
     ]
 }
