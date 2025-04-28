@@ -10,3 +10,5 @@ For the backend, the test stack is
 - FluentAssertions for assertions (but freeze it to the latest 7.x version)
 - xUnit for testing
 - Bogus for generating human-like data
+
+When generating test databuilders, make them in a directory named `Builders` for C#
