@@ -11,10 +11,19 @@ public partial class ParkService : IParkService
     private readonly IDataAccessLayer _dataAccessLayer;
 
     public ParkService(IDataAccessLayer dataAccessLayer)
+        : this(dataAccessLayer, true)
+    {
+    }
+
+    public ParkService(IDataAccessLayer dataAccessLayer, bool initializeData)
     {
         _dataAccessLayer = dataAccessLayer ?? throw new ArgumentNullException(nameof(dataAccessLayer));
         _dataAccessLayer.Init();
-        Init();
+        
+        if (initializeData)
+        {
+            Init();
+        }
     }
 
     public void AddZone(string name, bool isOpen)
