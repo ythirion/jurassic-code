@@ -443,3 +443,27 @@ Here is the cost:
 ![06.cost.png](img/06.cost.png)
 
 Result code is available under `/generated-tests`.
+
+## Use Clean Architecture Principles
+```prompt
+Refactor backend code to use Clean Architecture principles.
+```
+
+```result
+⏺ Based on the code analysis, I'll now create a plan for refactoring the
+  backend to follow Clean Architecture principles.
+
+  Refactoring Plan
+
+  Here's the plan to refactor the backend to follow Clean Architecture
+  principles:
+
+  1. Create a layered structure with:
+    - Core (Domain/Application)
+    - Infrastructure
+    - API (Presentation)
+  2. Let's implement this refactoring:
+```
+
+The result if pretty good without too much details.
+All my observations [here](07.refactored-architecture.md).
