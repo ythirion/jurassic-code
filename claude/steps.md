@@ -467,3 +467,148 @@ Refactor backend code to use Clean Architecture principles.
 
 The result if pretty good without too much details.
 All my observations [here](07.refactored-architecture.md).
+
+### In-depth
+```prompt
+Refactor backend code to use Clean Architecture principles:
+- Domain model should not be anemic anymore
+- Use Ubiquitous Language in the code
+- Ensure the Tell Don't Ask principle is applied everywhere
+- Use dependency inversion principle especially for data access layer
+- Create Business oriented Use Cases so our Architecture is Screaming
+  - No more God Service class anymore
+- Clean the code while doing it : remove Class1 file for example
+```
+
+It made a lot of stuff here:
+- Created 3 projects: `JurassicCode.Application`, `JurassicCode.Domain`, `JurassicCode.Infrastructure`
+- Introduced concepts like `Unit Of Work` or `Event Sourcing` that were not asked without any questions...
+
+```csharp
+namespace JurassicCode.Domain.Entities;
+
+/// <summary>
+/// Dinosaur aggregate root representing a dinosaur in the park
+/// </summary>
+public class Dinosaur
+{
+    private readonly List<IDomainEvent> _domainEvents = new();
+    
+    public string Name { get; }
+    public SpeciesType Species { get; }
+    public HealthStatus HealthStatus { get; private set; }
+    public DateTime LastFed { get; private set; }
+    
+    public Dinosaur(string name, SpeciesType species)
+    {
+        // Never thow exception from constructors...
+        // Use Factory Method instead
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DinosaurDomainException("Dinosaur name cannot be empty");
+        
+        if (species == null)
+            throw new DinosaurDomainException("Dinosaur species cannot be null");
+            
+        Name = name;
+        Species = species;
+        HealthStatus = HealthStatus.Healthy;
+        LastFed = DateTime.Now;
+        
+        _domainEvents.Add(new DinosaurCreatedEvent(this));
+    }
+    
+    // Constructor for reconstructing from persistence
+    private Dinosaur(string name, SpeciesType species, HealthStatus healthStatus, DateTime lastFed)
+    {
+        Name = name;
+        Species = species;
+        HealthStatus = healthStatus;
+        LastFed = lastFed;
+    }
+    
+    public static Dinosaur Reconstruct(string name, string speciesName, HealthStatus healthStatus, DateTime lastFed)
+    {
+        var species = SpeciesType.FromName(speciesName);
+        return new Dinosaur(name, species, healthStatus, lastFed);
+    }
+    
+    // Tell Don't Ask principle
+    public void MarkAsSick()
+    {
+        if (HealthStatus != HealthStatus.Sick)
+        {
+            HealthStatus = HealthStatus.Sick;
+            _domainEvents.Add(new DinosaurHealthChangedEvent(this));
+        }
+    }
+    
+    public void MarkAsHealthy()
+    {
+        if (HealthStatus != HealthStatus.Healthy)
+        {
+            HealthStatus = HealthStatus.Healthy;
+            _domainEvents.Add(new DinosaurHealthChangedEvent(this));
+        }
+    }
+    
+    // Business behaviors
+    public void Feed()
+    {
+        LastFed = DateTime.Now;
+        // Raise an Event
+        // Why did you implement that? 😆
+        _domainEvents.Add(new DinosaurFedEvent(this));
+    }
+    
+    public bool CanCoexistWith(Dinosaur other)
+    {
+        return SpeciesType.AreCompatible(Species, other.Species);
+    }
+    
+    public bool NeedsFeeding()
+    {
+        return DateTime.Now - LastFed > TimeSpan.FromHours(8);
+    }
+    
+    public string GetFormattedFeedingTime()
+    {
+        return LastFed.ToString("g");
+    }
+    
+    public TimeSpan GetTimeSinceLastFed()
+    {
+        return DateTime.Now - LastFed;
+    }
+    
+    public bool IsDangerous()
+    {
+        return Species.Diet == DietType.Carnivore;
+    }
+    
+    // Domain events handling
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
+    
+    // Equality based on identity
+    public override bool Equals(object? obj)
+    {
+        if (obj is not Dinosaur other)
+            return false;
+            
+        return Name == other.Name;
+    }
+    
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
+}
+```
+
+The prompt was probably too vast here (work on the entire repository) to reach a satisfying refactoring result. 
+
+You can check the result in `/clean-architecture`.
