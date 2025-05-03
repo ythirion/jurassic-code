@@ -1,5 +1,7 @@
 # Jurassic Code Development Guidelines
 
+> Work in the src folder
+
 ## Build Commands
 - Build solution: `dotnet build JurassicCode.sln`
 - Build specific project: `dotnet build JurassicCode/JurassicCode.csproj`
